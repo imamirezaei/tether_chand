@@ -1,0 +1,26 @@
+{
+  "name": "tetherchand_com",
+  "version": "1.0.0",
+  "description": "A service that collects and stores Tether price data from various exchanges.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tether",
+    "cryptocurrency",
+    "price",
+    "api",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.8.1",
+    "winston": "^3.6.0",
+    "axios-retry": "^3.2.0"
+  }
+}
