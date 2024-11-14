@@ -43,9 +43,6 @@ In the volatile cryptocurrency market, prices can vary significantly between exc
 │           └── extractUSDTInfo.js
 └── docker-compose.yaml
 
-markdown
-Copy code
-
 ---
 
 ## Setup Instructions
