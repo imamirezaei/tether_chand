@@ -13,38 +13,6 @@ In the volatile cryptocurrency market, prices can vary significantly between exc
 - **Dockerized Deployment**: The project is Dockerized, making deployment easy and consistent across environments.
 - **Scalable Architecture**: Modular structure supports easy addition of new exchanges and API integrations.
 
-<<<<<<< HEAD
----
-
-## Project Structure
-
-.
-├── .DS_Store
-├── .dockerignore
-├── .env
-├── .env.example
-├── .gitignore
-├── Dockerfile
-├── README.md
-├── app
-│   ├── package-lock.json
-│   ├── package.json
-│   └── src
-│       ├── config
-│       │   └── logger.js
-│       ├── controller
-│       │   └── fetchDataController.js
-│       ├── exchanges.js
-│       ├── index.js
-│       ├── models
-│       │   └── ExchangeRate.js
-│       ├── services
-│       │   └── exchangeService.js
-│       └── utils
-│           └── extractUSDTInfo.js
-└── docker-compose.yaml
-
-
 ---
 
 ## Setup Instructions
@@ -58,6 +26,7 @@ In the volatile cryptocurrency market, prices can vary significantly between exc
 ### Installation
 
 1. **Clone the Repository**
+
    ```bash
    git clone https://github.com/yourusername/tetherchand.git
    cd tetherchand
@@ -114,6 +83,3 @@ License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 Tetherchand enables users to make better trading decisions in Iran’s cryptocurrency market by offering real-time USDT price comparisons across exchanges. It’s a helpful tool for anyone looking to optimize their Tether transactions.
-=======
-
->>>>>>> 651bf6ad4f5fad41e5e6d0095e0874748de6d99b
