@@ -33,10 +33,11 @@ In the volatile cryptocurrency market, prices can vary significantly between exc
    Install Dependencies Navigate to the app directory and install dependencies:
    ```
 
-bash
-Copy code
+```bash
 cd app
 npm install
+```
+
 Set Up Environment Variables Create a .env file in the root directory based on .env.example and provide the necessary API keys and MongoDB connection details:
 
 plaintext
