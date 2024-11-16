@@ -1,34 +1,42 @@
-const axios = require('axios');
-const { MongoClient } = require('mongodb');
-const extractUSDTInfo = require('../utils/extractUSDTInfo');
+const axios = require("axios");
+const { MongoClient } = require("mongodb");
+const extractUSDTInfo = require("../utils/extractUSDTInfo");
 
-const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017';
-const dbName = 'tether_prices';
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017";
+const dbName = "tether_prices";
 
 async function fetchAndSaveData(exchange) {
-    try {
-        const response = await axios.get(exchange.url, { headers: exchange.headers });
-        const usdtInfo = extractUSDTInfo(exchange, response);
+  try {
+    const response = await axios.get(exchange.url, {
+      headers: exchange.headers,
+    });
+    const usdtInfo = extractUSDTInfo(exchange, response);
 
-        const client = new MongoClient(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-        await client.connect();
+    const client = new MongoClient(mongoUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    await client.connect();
 
-        const db = client.db(dbName);
-        const collection = db.collection(exchange.name);
+    const db = client.db(dbName);
+    const collection = db.collection(exchange.name);
 
-        const priceData = {
-            name: exchange.name,
-            timestamp: new Date(),
-            data: usdtInfo
-        };
+    const priceData = {
+      name: exchange.name,
+      timestamp: new Date(),
+      data: usdtInfo,
+    };
 
-        await collection.insertOne(priceData);
-        console.log(`Data saved to MongoDB for ${exchange.name}:`, priceData);
+    await collection.insertOne(priceData);
+    console.log(`Data saved to MongoDB for ${exchange.name}:`, priceData);
 
-        await client.close();
-    } catch (error) {
-        console.error(`Error fetching data or saving to MongoDB for ${exchange.name}:`, error);
-    }
+    await client.close();
+  } catch (error) {
+    console.error(
+      `Error fetching data or saving to MongoDB for ${exchange.name}:`,
+      error
+    );
+  }
 }
 
 module.exports = { fetchAndSaveData };
