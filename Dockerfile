@@ -1,6 +1,10 @@
-FROM node:22-buster-slim
+FROM node:16
+
 WORKDIR /app
-COPY app/package*.json ./
-RUN npm install --only=production
-COPY app .
-CMD ["node", "src/index.js"]
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+CMD ["node", "app/src/index.js"]
