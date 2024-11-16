@@ -27,39 +27,27 @@ In the volatile cryptocurrency market, prices can vary significantly between exc
 
 1. **Clone the Repository**
 
-   ```bash
-   git clone https://github.com/yourusername/tetherchand.git
-   cd tetherchand
-   Install Dependencies Navigate to the app directory and install dependencies:
-   ```
-
 ```bash
+git clone https://github.com/imamirezaei/tether_chand.git
+cd tetherchand
 cd app
-npm install
+npm i
 ```
 
-Set Up Environment Variables Create a .env file in the root directory based on .env.example and provide the necessary API keys and MongoDB connection details:
-
-plaintext
-Copy code
-MONGO_URL=mongodb://tetherchand-mongo:27017/tetherchand
-NOBITEX_TOKEN=your_nobitex_token
-WALLEX_API_KEY=your_wallex_api_key
-ABAN_TOKEN=your_aban_token
-FETCH_INTERVAL=10000 # Interval in milliseconds for fetching data
-LOG_LEVEL=info # Log level (e.g., info, debug, error)
-Run the Application
+Set Up Environment Variables Create a .env file in the root directory based on .env.example and provide the necessary API keys and MongoDB connection details.
 
 Without Docker: Start the app directly with Node.js:
 
-bash
-Copy code
+```bash
 node src/index.js
+```
+
 With Docker:
 
-bash
-Copy code
-docker-compose up -d
+```bash
+docker compose up -d
+```
+
 Usage
 The application will fetch data from multiple exchanges at intervals specified in the .env file. The fetched prices are then saved in MongoDB and logged to the console and a log file.
 
