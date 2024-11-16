@@ -109,7 +109,7 @@ const exchanges = [
   {
       name: 'Aban-tether',
       url: 'https://abantether.com/api/v1/otc/coin-price/?coin=usdt',
-      headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1...' },
+      Authorization: `Bearer ${process.env.ABAN_TOKEN},
       symbolPath: null
   },
   {
