@@ -3,7 +3,7 @@ const { fetchAndSaveData } = require('../services/exchangeService');
 
 function startFetchingData() {
     exchanges.forEach((exchange) => {
-        setInterval(() => fetchAndSaveData(exchange), 10000);
+        setInterval(() => fetchAndSaveData(exchange), 30000);
     });
 }
 
