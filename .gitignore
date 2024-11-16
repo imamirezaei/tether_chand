@@ -4,3 +4,4 @@ node_modules/
 .error.log
 
 app/error.log
+error.log
