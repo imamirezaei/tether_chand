@@ -1,0 +1,49 @@
+services:
+  tethterchand-mongo:
+    image: mongo:8.0
+    container_name: tetherchand-mongo
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - tetherchand-network
+
+  tethterchand-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: tetherchand-app
+    environment:
+      - MONGO_URL=mongodb://tetherchand-mongo:27017/tetherchand
+      - WALLEX_API_KEY=${WALLEX_API_KEY}
+      - NOBITEX_TOKEN=${NOBITEX_TOKEN}
+      - ABAN_TOKEN=${ABAN_TOKEN}
+      - FETCH_INTERVAL=${FETCH_INTERVAL}
+      - LOG_LEVEL=${LOG_LEVEL}
+    depends_on:
+      - mongo
+    ports:
+      - "3000:3000"
+    networks:
+      - tetherchand-network
+
+  tetherchand-mongo-express:
+    container_name: tethterchand-mongo-express
+    depends_on:
+      - tethterchand-mongo
+    image: mongo-express
+    environment:
+      ME_CONFIG_MONGODB_SERVER: tethterchand-mongo
+    ports:
+      - 8081:8081
+    networks:
+      - tetherchand-network
+
+volumes:
+  mongo-data:
+
+
+networks:
+  tetherchand-network:
+    driver: bridge
