@@ -16,7 +16,7 @@ async function main() {
 
   try {
     await mongoose.connect(
-      process.env.MONGO_URL || "mongodb://localhost:27017",
+      process.env.MONGO_URL || "mongodb://localhost:27017/tetherchand",
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -29,16 +29,21 @@ async function main() {
   }
 
   app.set("views", path.join(__dirname, "views"));
-
   app.set("view engine", "ejs");
-
   app.use(express.static("public"));
 
   app.get("/", async (req, res) => {
     try {
       const exchangeRates = await ExchangeRate.find();
 
-      res.render("index", { exchangeRates });
+      // Find Exir data
+      const exirData = exchangeRates.find(rate => rate.name === "Exir");
+
+      // Prepare data for rendering
+      const exirSellPrice = exirData ? exirData.data.low : null; // Fetching the low price for sell price
+      const exirBuyPrice = exirData ? exirData.data.last : null; // Fetching the last price for buy price
+
+      res.render("index", { exchangeRates, exirSellPrice, exirBuyPrice });
     } catch (error) {
       logger.error("Error fetching exchange rates:", error);
       res.status(500).send("Error fetching data");
