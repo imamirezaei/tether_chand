@@ -5,9 +5,13 @@ const path = require("path");
 const ExchangeRate = require("./models/ExchangeRate");
 const logger = require("./config/logger");
 const { startFetchingData } = require("./controller/fetchDataController");
+const { MongoClient } = require("mongodb");
 
 const app = express();
-const port = 3000;
+const port = 3001;
+
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017";
+const dbName = "tether_prices";
 
 async function main() {
   logger.info("Starting TetherChand Service...");
@@ -34,16 +38,48 @@ async function main() {
 
   app.get("/", async (req, res) => {
     try {
-      const exchangeRates = await ExchangeRate.find();
+      const client = new MongoClient(mongoUrl, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+      await client.connect();
+
+      const db = await client.db(dbName);
+      const collections = await db.listCollections().toArray();
+
+
+      const lastDocs = {};
+
+        // Iterate over each collection
+        for (const collectionInfo of collections) {
+            const collectionName = collectionInfo.name;
+            const collection = await db.collection(collectionName);
+
+            // Find the last document sorted by _id in descending order
+            const lastDoc = await collection.find().sort({ _id: -1 }).limit(1).toArray();
+
+            // Store the last document in the result object if it exists
+            if (lastDoc.length > 0) {
+                lastDocs[collectionName] = lastDoc[0];
+            } else {
+                lastDocs[collectionName] = null; // or handle empty collection case as needed
+            }
+        }
+
+        console.log(lastDocs);
+
+      // const exchangeRates = await ExchangeRate.find();
+
+      // const collections = mongoose.connection.collections;
+
+      console.log(await collections);
 
       // Find Exir data
-      const exirData = exchangeRates.find(rate => rate.name === "Exir");
+      // const exirData = exchangeRates.find((rate) => rate.name === "Exir");
 
       // Prepare data for rendering
-      const exirSellPrice = exirData ? exirData.data.low : null; // Fetching the low price for sell price
-      const exirBuyPrice = exirData ? exirData.data.last : null; // Fetching the last price for buy price
 
-      res.render("index", { exchangeRates, exirSellPrice, exirBuyPrice });
+      res.render("index", { lastDocs });
     } catch (error) {
       logger.error("Error fetching exchange rates:", error);
       res.status(500).send("Error fetching data");

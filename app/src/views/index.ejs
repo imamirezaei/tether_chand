@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Gift Card Purchase</title>
+    <title>Gift Card Purchase test</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet"/>
@@ -23,23 +23,6 @@
     <header class="flex justify-between items-center mb-4">
         <div class="text-2xl font-bold">تتر چند</div>
     </header>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        <div class="bg-white p-4 rounded-lg shadow shadow-fade">
-            <div class="text-gray-500">بیشترین حجم</div>
-            <div class="text-2xl font-bold">۶۹,۰۰۰ تومان</div>
-            <div class="text-gray-500">تتر</div>
-        </div>
-        <div class="bg-white p-4 rounded-lg shadow shadow-fade">
-            <div class="text-gray-500">ارزانترین قیمت خرید</div>
-            <div class="text-2xl font-bold">۶۹,۰۰۰ تومان</div>
-            <div class="text-gray-500">تتر</div>
-        </div>
-        <div class="bg-white p-4 rounded-lg shadow shadow-fade">
-            <div class="text-gray-500">گرانترین قیمت فروش</div>
-            <div class="text-2xl font-bold">۶۹,۰۰۰ تومان</div>
-            <div class="text-gray-500">تتر</div>
-        </div>
-    </div>
     <div class="bg-white p-4 rounded-lg shadow shadow-fade">
         <table class="w-full text-right">
             <thead>
@@ -101,8 +84,8 @@
             </tr>
             <tr class="border-b">
                 <td class="py-2">اکسیر</td>
-                <td class="py-2"><%= exirSellPrice ? exirSellPrice.toLocaleString('fa-IR') + ' تومان' : 'N/A' %></td> <!-- Sell Price -->
-                <td class="py-2"><%= exirBuyPrice ? exirBuyPrice.toLocaleString('fa-IR') + ' تومان' : 'N/A' %></td> <!-- Buy Price -->
+                <td class="py-2">۶۹,۰۰۰ تومان<</td> <!-- Sell Price -->
+                <td class="py-2">۶۹,۰۰۰ تومان<></td> <!-- Buy Price -->
                 <td class="py-2">
                     <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">خرید</button>
                 </td>

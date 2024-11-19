@@ -3,6 +3,7 @@ const router = express.Router();
 const Exir = require('../models/ExchangeRate'); // Adjust the path based on your project structure
 
 router.get('/', async (req, res) => {
+    console.log(1);
     try {
         const exirData = await Exir.findOne({}, { 'data.low': 1, 'data.last': 1, name: 1 });
         const formattedData = {
