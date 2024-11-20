@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
-const ExchangeRate = require("./models/ExchangeRate");
 const logger = require("./config/logger");
 const { startFetchingData } = require("./controller/fetchDataController");
 const { MongoClient } = require("mongodb");
@@ -34,48 +33,33 @@ async function main() {
 
   app.get("/", async (req, res) => {
     try {
-      const client = new MongoClient(mongoUrl, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
+      const client = new MongoClient(mongoUrl);
       await client.connect();
 
-      const db = await client.db(dbName);
+      const db = client.db(dbName);
       const collections = await db.listCollections().toArray();
-
 
       const lastDocs = {};
 
-        // Iterate over each collection
-        for (const collectionInfo of collections) {
-            const collectionName = collectionInfo.name;
-            const collection = await db.collection(collectionName);
+      // Iterate over each collection
+      for (const collectionInfo of collections) {
+        const collectionName = collectionInfo.name;
+        const collection = db.collection(collectionName);
 
-            // Find the last document sorted by _id in descending order
-            const lastDoc = await collection.find().sort({ _id: -1 }).limit(1).toArray();
+        // Find the last document sorted by _id in descending order
+        const lastDoc = await collection.find().sort({ _id: -1 }).limit(1).toArray();
 
-            // Store the last document in the result object if it exists
-            if (lastDoc.length > 0) {
-                lastDocs[collectionName] = lastDoc[0];
-            } else {
-                lastDocs[collectionName] = null; // or handle empty collection case as needed
-            }
+        // Store the last document in the result object if it exists
+        if (lastDoc.length > 0) {
+          lastDocs[collectionName] = lastDoc[0]; // Store the last document
+        } else {
+          lastDocs[collectionName] = null; // Handle empty collection case
         }
+      }
 
-        console.log(lastDocs);
+      console.log(lastDocs); // Log the last documents for debugging
 
-      // const exchangeRates = await ExchangeRate.find();
-
-      // const collections = mongoose.connection.collections;
-
-      console.log(await collections);
-
-      // Find Exir data
-      // const exirData = exchangeRates.find((rate) => rate.name === "Exir");
-
-      // Prepare data for rendering
-
-      res.render("index", { lastDocs });
+      res.render("index", { lastDocs }); // Pass the last documents to the view
     } catch (error) {
       logger.error("Error fetching exchange rates:", error);
       res.status(500).send("Error fetching data");
