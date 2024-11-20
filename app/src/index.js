@@ -8,7 +8,7 @@ const { startFetchingData } = require("./controller/fetchDataController");
 const { MongoClient } = require("mongodb");
 
 const app = express();
-const port = 3001;
+const port = 3000;
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017";
 const dbName = "tether_prices";
@@ -21,10 +21,6 @@ async function main() {
   try {
     await mongoose.connect(
       process.env.MONGO_URL || "mongodb://localhost:27017/tetherchand",
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
     );
     logger.info("Connected to MongoDB");
   } catch (err) {

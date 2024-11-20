@@ -12,10 +12,7 @@ async function fetchAndSaveData(exchange) {
     });
     const usdtInfo = extractUSDTInfo(exchange, response);
 
-    const client = new MongoClient(mongoUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const client = new MongoClient(mongoUrl);
     await client.connect();
 
     const db = client.db(dbName);

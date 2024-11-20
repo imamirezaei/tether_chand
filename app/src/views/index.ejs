@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Gift Card Purchase test</title>
+    <title>Gift Card Purchase Test</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet"/>
@@ -34,70 +34,16 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="border-b">
-                <td class="py-2">نوبیتکس</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">خرید</button>
-                </td>
-            </tr>
-            <tr class="border-b">
-                <td class="py-2">والکس</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">خرید</button>
-                </td>
-            </tr>
-            <tr class="border-b">
-                <td class="py-2">کیف پول</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">خرید</button>
-                </td>
-            </tr>
-            <tr class="border-b">
-                <td class="py-2">آبان تتر</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">خرید</button>
-                </td>
-            </tr>
-            <tr class="border-b">
-                <td class="py-2">رمزینکس</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">خرید</button>
-                </td>
-            </tr>
-            <tr class="border-b">
-                <td class="py-2">تترلند</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">خرید</button>
-                </td>
-            </tr>
-            <tr class="border-b">
-                <td class="py-2">اکسیر</td>
-                <td class="py-2">۶۹,۰۰۰ تومان<</td> <!-- Sell Price -->
-                <td class="py-2">۶۹,۰۰۰ تومان<></td> <!-- Buy Price -->
-                <td class="py-2">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">خرید</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="py-2">اوکی اکسچنج</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">۶۹,۰۰۰ تومان</td>
-                <td class="py-2">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">خرید</button>
-                </td>
-            </tr>
+            <% exchangeRates.forEach(data => { %>
+                <tr class="border-b">
+                    <td class="py-2"><%= data.exchangeName %></td>
+                    <td class="py-2"><%= data.sell_px.toLocaleString() %> تومان</td>
+                    <td class="py-2"><%= data.buy_px .toLocaleString() %> تومان</td>
+                    <td class="py-2">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">خرید</button>
+                    </td>
+                </tr>
+            <% }); %>
             </tbody>
         </table>
     </div>
