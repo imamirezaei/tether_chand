@@ -17,6 +17,9 @@ services:
       - "3000:3000"
     networks:
       - tetherchand-network
+  nginx:
+    image: nginx:1
+    
 
   mongo:
     image: mongo:8.0
