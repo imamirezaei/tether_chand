@@ -50,16 +50,16 @@ module.exports = [
     buyPath: "tickers.buy_price",
     sellPath: "tickers.sell_price",
   },
-  {
-    name: "Aban-tether",
-    url: "https://abantether.com/api/v1/otc/coin-price/?coin=usdt",
-    headers: {
-      Authorization: `Bearer ${process.env.ABAN_TOKEN}`,
-    },
-    symbolPath: null,
-    buyPath: "USDT.irtPriceBuy",
-    sellPath: "USDT.irtPriceSell",
-  },
+  // {
+  //   name: "Aban-tether",
+  //   url: "https://abantether.com/api/v1/otc/coin-price/?coin=usdt",
+  //   headers: {
+  //     Authorization: `Bearer ${process.env.ABAN_TOKEN}`,
+  //   },
+  //   symbolPath: null,
+  //   buyPath: "USDT.irtPriceBuy",
+  //   sellPath: "USDT.irtPriceSell",
+  // },
   {
     name: "Kifepool",
     url: "https://api.kifpool.app/api/spot/price?symbol=USDT",
@@ -69,3 +69,5 @@ module.exports = [
     sellPath: "data.sell_price",
   },
 ];
+
+
