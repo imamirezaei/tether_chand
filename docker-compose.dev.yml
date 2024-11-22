@@ -4,8 +4,6 @@ services:
     container_name: tetherchand-mongo
     volumes:
       - mongo-data:/data/db
-    ports:
-      - "27017:27017"
     networks:
       - tetherchand-network
 
@@ -24,7 +22,9 @@ services:
     depends_on:
       - mongo
     ports:
-      - "3000:3000"
+      - 3000:3000
+    entrypoint:
+      - ["tail", "-f", "/dev/null"] 
     networks:
       - tetherchand-network
 

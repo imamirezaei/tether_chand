@@ -4,8 +4,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: tetherchand-app
+    env_file:
+      - .env
     environment:
-      - MONGO_URL=mongodb://tetherchand-mongo:27017/tetherchand
+      - MONGO_URI=mongodb://tetherchand-mongo/tetherchand
       - WALLEX_API_KEY=${WALLEX_API_KEY}
       - NOBITEX_TOKEN=${NOBITEX_TOKEN}
       - ABAN_TOKEN=${ABAN_TOKEN}
@@ -14,7 +16,7 @@ services:
     depends_on:
       - mongo
     ports:
-      - "3000:3000"
+      - 3000:3000
     networks:
       - tetherchand-network
       
@@ -23,8 +25,21 @@ services:
     container_name: tetherchand-mongo
     volumes:
       - mongo-data:/data/db
+    networks:
+      - tetherchand-network
+
+  nginx:
+    image: nginx:latest
+    container_name: tetherchand-nginx
+    depends_on:
+      - app
     ports:
-      - "27017:27017"
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/templates:/etc/nginx/templates:ro
+      - ./nginx/cert-local:/etc/nginx/certs:ro
     networks:
       - tetherchand-network
 

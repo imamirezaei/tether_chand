@@ -7,7 +7,12 @@ module.exports = function extractUSDTInfo(exchange, response) {
       .split(".")
       .reduce((obj, key) => obj && obj[key], response.data);
     usdtInfo = Array.isArray(dataArray)
-      ? dataArray.find((item) => item.asset === "USDT" || item.coin === "USDT" || item.symbol === "USDT")
+      ? dataArray.find(
+          (item) =>
+            item.asset === "USDT" ||
+            item.coin === "USDT" ||
+            item.symbol === "USDT"
+        )
       : dataArray;
   } else {
     usdtInfo = response.data;
@@ -15,7 +20,7 @@ module.exports = function extractUSDTInfo(exchange, response) {
 
   // Define a mapping for each exchange's specific extraction logic
   const exchangeMapping = {
-    "Wallex": () => {
+    Wallex: () => {
       const symbolData = response.data?.result?.symbols?.USDTTMN; // Access the USDTTMN symbol data
       if (symbolData) {
         const stats = symbolData.stats; // Access the stats object
@@ -24,24 +29,27 @@ module.exports = function extractUSDTInfo(exchange, response) {
           sell_px: stats.askPrice || null, // Map askPrice to sell_px
         };
       }
-      console.error("Wallex response does not contain symbol data:", response.data);
+      console.error(
+        "Wallex response does not contain symbol data:",
+        response.data
+      );
       return { buy_px: null, sell_px: null };
     },
-    "Exir": () => {
+    Exir: () => {
       // Map last to both buy_px and sell_px
       return {
         buy_px: response.data?.["usdt-irt"]?.last || null, // Map last to buy_px
         sell_px: response.data?.["usdt-irt"]?.last || null, // Map last to sell_px
       };
     },
-    "Kifepool": () => {
+    Kifepool: () => {
       const data = response.data[0]; // Assuming data is an array
       return {
         buy_px: data.priceBuyIRT || null, // Map priceBuyIRT to buy_px
         sell_px: data.priceSellIRT || null, // Map priceSellIRT to sell_px
       };
     },
-    "Nobitex": () => {
+    Nobitex: () => {
       const bids = response.data?.bids;
       const asks = response.data?.asks;
       return {
@@ -49,27 +57,30 @@ module.exports = function extractUSDTInfo(exchange, response) {
         sell_px: asks?.[0]?.[0] || null, // First ask price
       };
     },
-    "Ramzinex": () => {
+    Ramzinex: () => {
       return {
         buy_px: response.data?.data?.buy || null, // Map buy to buy_px
         sell_px: response.data?.data?.sell || null, // Map sell to sell_px
       };
     },
-    "Tetherland": () => {
+    Tetherland: () => {
       return {
         buy_px: response.data?.data?.currencies?.USDT?.price || null, // Map price to buy_px
         sell_px: response.data?.data?.currencies?.USDT?.price || null, // Map price to sell_px
       };
     },
     "OK-EX": () => {
-      const ticker = response.data?.tickers?.find(t => t.asset === "USDT"); // Find the ticker for USDT
+      const ticker = response.data?.tickers?.find((t) => t.asset === "USDT"); // Find the ticker for USDT
       if (ticker) {
         return {
           buy_px: ticker.buy_px || null, // Map buy_px to buy_px
           sell_px: ticker.sell_px || null, // Map sell_px to sell_px
         };
       }
-      console.error("OK-EX response does not contain USDT ticker:", response.data);
+      console.error(
+        "OK-EX response does not contain USDT ticker:",
+        response.data
+      );
       return { buy_px: null, sell_px: null };
     },
     // Add more exchanges here if needed

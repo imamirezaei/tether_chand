@@ -2,7 +2,7 @@ const axios = require("axios");
 const { MongoClient } = require("mongodb");
 const extractUSDTInfo = require("../utils/extractUSDTInfo");
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017";
+const mongoUrl = process.env.MONGO_URI || "mongodb://localhost:27017";
 const dbName = "tether_prices";
 
 async function fetchAndSaveData(exchange) {
@@ -25,7 +25,6 @@ async function fetchAndSaveData(exchange) {
     };
 
     await collection.insertOne(priceData);
-    console.log(`Data saved to MongoDB for ${exchange.name}:`, priceData);
 
     await client.close();
   } catch (error) {

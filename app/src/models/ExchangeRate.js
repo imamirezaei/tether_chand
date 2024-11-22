@@ -4,7 +4,7 @@ const exchangeRateSchema = new mongoose.Schema({
   exchangeName: String,
   buy_px: Number,
   sell_px: Number,
-  createdAt: { type: Date, default: Date.now } // Add a timestamp for sorting
+  createdAt: { type: Date, default: Date.now },
 });
 
 const ExchangeRate = mongoose.model("ExchangeRate", exchangeRateSchema);

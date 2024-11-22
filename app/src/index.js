@@ -7,9 +7,8 @@ const { startFetchingData } = require("./controller/fetchDataController");
 const { MongoClient } = require("mongodb");
 
 const app = express();
-const port = 3000;
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017";
+const mongoUrl = process.env.MONGO_URI;
 const dbName = "tether_prices";
 
 async function main() {
@@ -18,9 +17,9 @@ async function main() {
   startFetchingData();
 
   try {
-    await mongoose.connect(
-      process.env.MONGO_URL || "mongodb://localhost:27017/tetherchand",
-    );
+    console.log("=====================================")
+    console.log(mongoUrl)
+    await mongoose.connect(mongoUrl);
     logger.info("Connected to MongoDB");
   } catch (err) {
     logger.error("MongoDB connection error:", err);
@@ -47,7 +46,11 @@ async function main() {
         const collection = db.collection(collectionName);
 
         // Find the last document sorted by _id in descending order
-        const lastDoc = await collection.find().sort({ _id: -1 }).limit(1).toArray();
+        const lastDoc = await collection
+          .find()
+          .sort({ _id: -1 })
+          .limit(1)
+          .toArray();
 
         // Store the last document in the result object if it exists
         if (lastDoc.length > 0) {
@@ -57,8 +60,6 @@ async function main() {
         }
       }
 
-      console.log(lastDocs); // Log the last documents for debugging
-
       res.render("index", { lastDocs }); // Pass the last documents to the view
     } catch (error) {
       logger.error("Error fetching exchange rates:", error);
@@ -66,8 +67,8 @@ async function main() {
     }
   });
 
-  app.listen(port, () => {
-    logger.info(`Server is running on http://localhost:${port}`);
+  app.listen(process.env.PORT, () => {
+    logger.info(`Server is running on http://localhost:${process.env.PORT}`);
   });
 }
 

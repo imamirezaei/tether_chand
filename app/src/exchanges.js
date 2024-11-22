@@ -69,5 +69,3 @@ module.exports = [
     sellPath: "data.sell_price",
   },
 ];
-
-

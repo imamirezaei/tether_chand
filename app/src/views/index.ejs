@@ -17,7 +17,7 @@
         font-family: "Vazirmatn", sans-serif;
       }
       .btn-primary {
-        background: #0869E9;
+        background: #0869e9;
         color: white;
         padding: 0.5rem 1rem;
         border-radius: 0.375rem;
@@ -32,11 +32,11 @@
   <body class="bg-gradient-to-b from-blue-50 to-white">
     <!-- Header -->
     <div class="container mx-auto p-4">
-        <header class="flex justify-center items-center mb-6">
-          <div class="flex items-center space-x-3">
-            <div class="text-3xl font-bold text-blue-700">تتر چند</div>
-          </div>
-        </header>
+      <header class="flex justify-center items-center mb-6">
+        <div class="flex items-center space-x-3">
+          <div class="text-3xl font-bold text-blue-700">تتر چند</div>
+        </div>
+      </header>
       <!-- Table Section -->
       <div class="bg-white p-6 rounded-lg shadow">
         <h2 class="text-lg font-bold mb-4">جدول مقایسه قیمت صرافی‌ها</h2>
@@ -51,21 +51,24 @@
             </tr>
           </thead>
           <tbody>
-            <% for (const [collectionName, lastDoc] of Object.entries(lastDocs)) { %>
-              <% if (lastDoc) { %>
-                <tr class="border-b hover:bg-gray-50">
-                  <td class="py-3 px-2"><%= lastDoc.name %></td>
-                  <td class="py-3 px-2"><%= lastDoc.data.sell_px.toLocaleString() %></td>
-                  <td class="py-3 px-2"><%= lastDoc.data.buy_px.toLocaleString() %></td>
-                  <td class="py-3 px-2"><%= new Date(lastDoc.timestamp).toLocaleString('fa-IR') %></td>
-                  <td class="py-3 px-2">
-                    <button class="btn-primary">
-                      خرید
-                    </button>
-                  </td>
-                </tr>
-              <% } %>
-            <% } %>
+            <% for (const [collectionName, lastDoc] of Object.entries(lastDocs))
+            { %> <% if (lastDoc) { %>
+            <tr class="border-b hover:bg-gray-50">
+              <td class="py-3 px-2"><%= lastDoc.name %></td>
+              <td class="py-3 px-2">
+                <%= lastDoc.data.sell_px.toLocaleString() %>
+              </td>
+              <td class="py-3 px-2">
+                <%= lastDoc.data.buy_px.toLocaleString() %>
+              </td>
+              <td class="py-3 px-2">
+                <%= new Date(lastDoc.timestamp).toLocaleString('fa-IR') %>
+              </td>
+              <td class="py-3 px-2">
+                <button class="btn-primary">خرید</button>
+              </td>
+            </tr>
+            <% } %> <% } %>
           </tbody>
         </table>
       </div>
@@ -73,7 +76,9 @@
       <!-- Footer -->
       <footer class="mt-6 text-center text-gray-600 text-sm">
         <p>&copy; 2024 تتر چند. تمامی حقوق محفوظ است.</p>
-        <p>برای دریافت اطلاعات بیشتر، با ما در تماس باشید: info@tetherchand.ir</p>
+        <p>
+          برای دریافت اطلاعات بیشتر، با ما در تماس باشید: info@tetherchand.ir
+        </p>
       </footer>
     </div>
   </body>
