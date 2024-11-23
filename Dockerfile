@@ -20,9 +20,7 @@ RUN apt-get update -y \
 
 ADD app /app
 
-RUN cd /app/; \
-  npm ci --only=production; \
-  rm -rf package-lock.json
+RUN cd /app/ && npm install
 
 EXPOSE 9000/tcp
 
