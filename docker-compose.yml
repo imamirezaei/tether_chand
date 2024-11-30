@@ -13,11 +13,11 @@ services:
       - LOG_LEVEL=${LOG_LEVEL}
     depends_on:
       - mongo
-    ports:
-      - 3000:3000
+    #    ports:
+    #     - 3000:3000
     networks:
       - tetherchand-network
-      
+
   mongo:
     image: mongo:8.0
     container_name: tetherchand-mongo
@@ -27,13 +27,15 @@ services:
       - tetherchand-network
 
   nginx:
-    image: nginx:latest
+    image: nginx
     container_name: tetherchand-nginx
     depends_on:
       - app
     ports:
-      - 8080:80
+      - 80:80
+      - 443:443
     volumes:
+      - /root/.lego/certificates:/certs:ro
       - ./nginx/:/etc/nginx/conf.d/
     networks:
       - tetherchand-network
