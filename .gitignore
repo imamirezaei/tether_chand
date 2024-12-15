@@ -7,4 +7,4 @@ app/error.log
 error.log
 nginx_image
 mongo_image
-tetherchand
+tetherchand.tar

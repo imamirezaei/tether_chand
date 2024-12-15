@@ -17,7 +17,10 @@ async function main() {
   startFetchingData();
 
   try {
+<<<<<<< HEAD
     console.log(mongoUrl)
+=======
+>>>>>>> 8403b42613cbbfdd02bdae6ff3aff84b46a60de3
     await mongoose.connect(mongoUrl);
     logger.info("Connected to MongoDB");
   } catch (err) {

@@ -42,14 +42,14 @@ module.exports = [
     buyPath: "data.currencies.USDT.price",
     sellPath: "data.currencies.USDT.price",
   },
-  {
-    name: "OK-EX",
-    url: "https://azapi.ok-ex.io/oapi/v1/otc/tickers",
-    headers: {},
-    symbolPath: "tickers",
-    buyPath: "tickers.buy_price",
-    sellPath: "tickers.sell_price",
-  },
+  // {
+  //   name: "OK-EX",
+  //   url: "https://azapi.ok-ex.io/oapi/v1/otc/tickers",
+  //   headers: {},
+  //   symbolPath: "tickers",
+  //   buyPath: "tickers.buy_price",
+  //   sellPath: "tickers.sell_price",
+  // },
   // {
   //   name: "Aban-tether",
   //   url: "https://abantether.com/api/v1/otc/coin-price/?coin=usdt",

@@ -12,6 +12,8 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     container_name: tetherchand-app
+    env_file:
+      - .env
     environment:
       - MONGO_URL=mongodb://tetherchand-mongo:27017/tetherchand
       - WALLEX_API_KEY=${WALLEX_API_KEY}
@@ -20,6 +22,7 @@ services:
       - FETCH_INTERVAL=${FETCH_INTERVAL}
       - LOG_LEVEL=${LOG_LEVEL}
     depends_on:
+<<<<<<< HEAD
       - tetherchand-mongo
     ports:
       - 3000:3000
@@ -34,8 +37,14 @@ services:
     image: mongo-express
     environment:
       ME_CONFIG_MONGODB_SERVER: tetherchand-mongo
+=======
+      - tethterchand-mongo
+>>>>>>> 8403b42613cbbfdd02bdae6ff3aff84b46a60de3
     ports:
-      - 8081:8081
+      - "3000:3000"
+    entrypoint: tail -f /dev/null
+    volumes:
+      - ./app:/app
     networks:
       - tetherchand-network
 

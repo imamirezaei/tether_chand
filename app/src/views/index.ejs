@@ -5,11 +5,11 @@
     <title>تتر چند - مقایسه قیمت‌ها و بهترین انتخاب</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://cdnjs.cloudflarew.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -27,57 +27,78 @@
         transform: scale(1.05);
         box-shadow: 0 4px 20px rgba(59, 130, 246, 0.5);
       }
+      @media (max-width: 640px) {
+        .table-container {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .responsive-table {
+          min-width: 640px;
+        }
+      }
     </style>
   </head>
-  <body class="bg-gradient-to-b from-blue-50 to-white">
+  <body class="bg-gradient-to-b from-blue-50 to-white min-h-screen">
     <!-- Header -->
-    <div class="container mx-auto p-4">
-      <header class="flex justify-center items-center mb-6">
-        <div class="flex items-center space-x-3">
-          <div class="text-3xl font-bold text-blue-700">تتر چند</div>
+    <div class="container mx-auto px-4 max-w-7xl">
+      <header class="flex justify-center items-center py-6 sm:py-8">
+        <div class="flex items-center">
+          <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-700">
+            تتر چند
+          </div>
         </div>
       </header>
+
       <!-- Table Section -->
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-lg font-bold mb-4">جدول مقایسه قیمت صرافی‌ها</h2>
-        <table class="w-full text-right">
-          <thead>
-            <tr class="border-b bg-gray-100">
-              <th class="py-3 px-2">نام صرافی</th>
-              <th class="py-3 px-2">قیمت فروش (تومان)</th>
-              <th class="py-3 px-2">قیمت خرید (تومان)</th>
-              <th class="py-3 px-2">زمان بروزرسانی</th>
-              <th class="py-3 px-2"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for (const [collectionName, lastDoc] of Object.entries(lastDocs))
-            { %> <% if (lastDoc) { %>
-            <tr class="border-b hover:bg-gray-50">
-              <td class="py-3 px-2"><%= lastDoc.name %></td>
-              <td class="py-3 px-2">
-                <%= lastDoc.data.sell_px.toLocaleString() %>
-              </td>
-              <td class="py-3 px-2">
-                <%= lastDoc.data.buy_px.toLocaleString() %>
-              </td>
-              <td class="py-3 px-2">
-                <%= new Date(lastDoc.timestamp).toLocaleString('fa-IR') %>
-              </td>
-              <td class="py-3 px-2">
-                <button class="btn-primary">خرید</button>
-              </td>
-            </tr>
-            <% } %> <% } %>
-          </tbody>
-        </table>
+      <div class="bg-white p-4 sm:p-6 rounded-lg shadow">
+        <h2 class="text-base sm:text-lg font-bold mb-4">
+          جدول مقایسه قیمت صرافی‌ها
+        </h2>
+        <div class="table-container">
+          <table class="w-full text-right responsive-table">
+            <thead>
+              <tr class="border-b bg-gray-100">
+                <th class="py-2 sm:py-3 px-2">نام صرافی</th>
+                <th class="py-2 sm:py-3 px-2">قیمت فروش (تومان)</th>
+                <th class="py-2 sm:py-3 px-2">قیمت خرید (تومان)</th>
+                <th class="py-2 sm:py-3 px-2 hidden sm:table-cell">
+                  زمان بروزرسانی
+                </th>
+                <th class="py-2 sm:py-3 px-2"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (const [collectionName, lastDoc] of
+              Object.entries(lastDocs)) { %> <% if (lastDoc) { %>
+              <tr class="border-b hover:bg-gray-50">
+                <td class="py-2 sm:py-3 px-2 font-medium">
+                  <%= lastDoc.name %>
+                </td>
+                <td class="py-2 sm:py-3 px-2">
+                  <%= lastDoc.data.sell_px.toLocaleString() %>
+                </td>
+                <td class="py-2 sm:py-3 px-2">
+                  <%= lastDoc.data.buy_px.toLocaleString() %>
+                </td>
+                <td class="py-2 sm:py-3 px-2 hidden sm:table-cell text-sm">
+                  <%= new Date(lastDoc.timestamp).toLocaleString('fa-IR') %>
+                </td>
+                <td class="py-2 sm:py-3 px-2">
+                  <button class="btn-primary text-sm sm:text-base">خرید</button>
+                </td>
+              </tr>
+              <% } %> <% } %>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- Footer -->
-      <footer class="mt-6 text-center text-gray-600 text-sm">
+      <footer class="mt-6 text-center text-gray-600 text-xs sm:text-sm p-4">
         <p>&copy; 2024 تتر چند. تمامی حقوق محفوظ است.</p>
-        <p>
-          برای دریافت اطلاعات بیشتر، با ما در تماس باشید: info@tetherchand.ir
+        <p class="mt-2">
+          برای دریافت اطلاعات بیشتر، با ما در تماس باشید:
+          <span class="block sm:inline mt-1 sm:mt-0">info@tetherchand.ir</span>
         </p>
       </footer>
     </div>
