@@ -17,7 +17,6 @@ async function main() {
   startFetchingData();
 
   try {
-    console.log("=====================================")
     console.log(mongoUrl)
     await mongoose.connect(mongoUrl);
     logger.info("Connected to MongoDB");

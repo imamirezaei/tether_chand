@@ -1,5 +1,5 @@
 services:
-  tethterchand-mongo:
+  tetherchand-mongo:
     image: mongo:8.0
     container_name: tetherchand-mongo
     volumes:
@@ -7,7 +7,7 @@ services:
     networks:
       - tetherchand-network
 
-  tethterchand-app:
+  tetherchand-app:
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -20,21 +20,20 @@ services:
       - FETCH_INTERVAL=${FETCH_INTERVAL}
       - LOG_LEVEL=${LOG_LEVEL}
     depends_on:
-      - mongo
+      - tetherchand-mongo
     ports:
       - 3000:3000
-    entrypoint:
-      - ["tail", "-f", "/dev/null"] 
+    command: tail -f /dev/null
     networks:
       - tetherchand-network
 
   tetherchand-mongo-express:
-    container_name: tethterchand-mongo-express
+    container_name: tetherchand-mongo-express
     depends_on:
-      - tethterchand-mongo
+      - tetherchand-mongo
     image: mongo-express
     environment:
-      ME_CONFIG_MONGODB_SERVER: tethterchand-mongo
+      ME_CONFIG_MONGODB_SERVER: tetherchand-mongo
     ports:
       - 8081:8081
     networks:
